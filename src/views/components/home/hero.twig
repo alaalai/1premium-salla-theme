@@ -7,17 +7,41 @@
 {% set hero_height = block.settings.height|default('large') %}
 {% set show_overlay = block.settings.show_overlay|default(true) %}
 
+{% set default_slides = [
+  {
+    title: 'اكتشف أحدث المجموعات',
+    subtitle: 'عروض حصرية',
+    description: 'تسوق تشكيلة واسعة من المنتجات بتخفيضات خاصة لفترة محدودة.',
+    button_text: 'تسوق الآن',
+    button_link: link('home'),
+    image: asset('images/placeholders/hero-1.jpg'),
+    text_align: 'text-right'
+  },
+  {
+    title: 'منتجات مميزة لك',
+    subtitle: 'جودة عالية',
+    description: 'اخترنا لك أفضل العلامات التجارية لتجربة تسوق لا تُنسى.',
+    button_text: 'اكتشف المزيد',
+    button_link: link('home'),
+    image: asset('images/placeholders/hero-2.jpg'),
+    text_align: 'text-left'
+  }
+] %}
+
+{% set slides = (block.slides is defined and block.slides|length > 0) ? block.slides : default_slides %}
+{% set has_multiple_slides = slides|length > 1 %}
+
 <section 
   class="hero-section {{ hero_style }}-hero {{ hero_height }}-hero relative overflow-hidden"
   data-hero-section
 >
   
-  {% if hero_style == 'slider' and block.slides|length > 1 %}
+  {% if hero_style == 'slider' and has_multiple_slides %}
   
   {# Slider Hero #}
   <div class="hero-slider swiper" data-hero-slider>
     <div class="swiper-wrapper">
-      {% for slide in block.slides %}
+      {% for slide in slides %}
       <div class="swiper-slide relative">
         
         {# Background Image #}
@@ -107,7 +131,7 @@
   {% else %}
   
   {# Single Hero #}
-  {% set slide = block.slides|first %}
+  {% set slide = slides|first %}
   <div class="hero-single relative">
     
     {# Background #}

@@ -1,0 +1,65 @@
+{% extends "layouts/master.twig" %}
+
+{% set blocks_component_map = {
+  'hero': 'home.hero',
+  'products-slider': 'home.products-slider',
+  'features': 'home.features',
+  'categories-grid': 'home.categories-grid',
+  'brands-slider': 'home.brands-slider',
+  'testimonials': 'home.testimonials',
+  'countdown-banner': 'home.countdown-banner',
+  'video-section': 'home.video-section',
+  'instagram-feed': 'home.instagram-feed',
+  'products-tabs': 'home.products-tabs',
+  'image-text-split': 'home.image-text-split',
+  'stats-counter': 'home.stats-counter',
+  'blog-posts': 'home.blog-posts',
+  'parallax-banner': 'home.parallax-banner',
+  'products-grid-advanced': 'home.products-grid-advanced',
+  'collection-list': 'home.collection-list',
+  'app-download': 'home.app-download',
+  'faq-accordion': 'home.faq-accordion',
+  'team-members': 'home.team-members',
+  'pricing-table': 'home.pricing-table',
+  'timeline': 'home.timeline',
+  'map-section': 'home.map-section',
+  'social-proof': 'home.social-proof',
+  'newsletter-popup': 'home.newsletter-popup'
+} %}
+
+{% block content %}
+  <div class="home-page space-y-8">
+    {% if page.blocks is defined and page.blocks|length > 0 %}
+      {% for block in page.blocks %}
+        {% set type = block.type|default(block.name) %}
+        {% set component_key = blocks_component_map[type] %}
+
+        {% if component_key is defined and component_key %}
+          {% component component_key with { block: block } %}
+        {% else %}
+          <div class="container">
+            <div class="bg-amber-50 border border-amber-200 text-amber-700 px-4 py-3 rounded-lg text-sm">
+              المكون "{{ type|default('غير معروف') }}" غير معرّف في ملف twilight.json.
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% set fallback_order = [
+        'hero',
+        'features',
+        'products-slider',
+        'categories-grid',
+        'brands-slider',
+        'testimonials'
+      ] %}
+
+      {% for type in fallback_order %}
+        {% set component_key = blocks_component_map[type] %}
+        {% if component_key %}
+          {% component component_key with { block: {} } %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endblock %}
