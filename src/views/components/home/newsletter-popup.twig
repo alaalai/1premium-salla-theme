@@ -1,0 +1,216 @@
+{#
+  Newsletter Popup Component
+  نافذة منبثقة للاشتراك في النشرة البريدية
+#}
+
+<div class="newsletter-popup-overlay fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4" data-block-id="{{ block.id }}">
+  <div class="newsletter-popup relative bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl transform transition-all duration-300 scale-95 opacity-0">
+    {# Close Button #}
+    <button 
+      class="absolute top-4 left-4 z-10 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors duration-300"
+      onclick="closeNewsletterPopup()"
+    >
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+      </svg>
+    </button>
+
+    <div class="flex flex-col md:flex-row">
+      {# Image Side #}
+      {% if block.image %}
+      <div class="w-full md:w-1/2 bg-gradient-to-br from-primary-600 to-secondary-600 p-8 flex items-center justify-center">
+        <img 
+          src="{{ block.image }}" 
+          alt="{{ block.title }}"
+          class="w-full max-w-xs"
+        >
+      </div>
+      {% endif %}
+
+      {# Content Side #}
+      <div class="w-full {{ block.image ? 'md:w-1/2' : '' }} p-8 md:p-12">
+        {% if block.icon %}
+        <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+          </svg>
+        </div>
+        {% endif %}
+
+        {% if block.title %}
+        <h3 class="text-3xl font-bold text-gray-900 mb-3">
+          {{ block.title }}
+        </h3>
+        {% endif %}
+
+        {% if block.description %}
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          {{ block.description }}
+        </p>
+        {% endif %}
+
+        {# Benefits List #}
+        {% if block.benefits %}
+        <ul class="space-y-2 mb-6">
+          {% for benefit in block.benefits %}
+          <li class="flex items-center text-gray-700">
+            <svg class="w-5 h-5 text-green-500 ml-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>{{ benefit }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {# Newsletter Form #}
+        <form class="newsletter-form" onsubmit="submitNewsletterForm(event)">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input 
+              type="email"
+              name="email"
+              placeholder="{{ trans('newsletter.email_placeholder') }}"
+              required
+              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-600"
+            >
+            <button 
+              type="submit"
+              class="bg-primary-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors duration-300 whitespace-nowrap"
+            >
+              {{ trans('newsletter.subscribe') }}
+            </button>
+          </div>
+          
+          {# Privacy Notice #}
+          <p class="text-xs text-gray-500 mt-3">
+            {{ trans('newsletter.privacy_notice') }}
+          </p>
+        </form>
+
+        {# Don't Show Again #}
+        <label class="flex items-center mt-4 cursor-pointer">
+          <input 
+            type="checkbox"
+            class="ml-2"
+            onchange="dontShowAgain(this.checked)"
+          >
+          <span class="text-sm text-gray-600">{{ trans('newsletter.dont_show_again') }}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Newsletter Popup Configuration
+const newsletterConfig = {
+  enabled: {{ block.enabled|default(true) ? 'true' : 'false' }},
+  delay: {{ block.delay|default(5000) }}, // milliseconds
+  showOnExit: {{ block.show_on_exit|default(false) ? 'true' : 'false' }},
+  cookieDays: {{ block.cookie_days|default(30) }}
+};
+
+// Check if popup should be shown
+function shouldShowNewsletterPopup() {
+  if (!newsletterConfig.enabled) return false;
+  
+  // Check cookie
+  const dontShow = getCookie('newsletter_popup_hidden');
+  if (dontShow === 'true') return false;
+  
+  return true;
+}
+
+// Show newsletter popup
+function showNewsletterPopup() {
+  if (!shouldShowNewsletterPopup()) return;
+  
+  const overlay = document.querySelector('.newsletter-popup-overlay');
+  const popup = overlay.querySelector('.newsletter-popup');
+  
+  overlay.classList.remove('hidden');
+  overlay.classList.add('flex');
+  
+  setTimeout(() => {
+    popup.classList.remove('scale-95', 'opacity-0');
+    popup.classList.add('scale-100', 'opacity-100');
+  }, 10);
+}
+
+// Close newsletter popup
+function closeNewsletterPopup() {
+  const overlay = document.querySelector('.newsletter-popup-overlay');
+  const popup = overlay.querySelector('.newsletter-popup');
+  
+  popup.classList.add('scale-95', 'opacity-0');
+  popup.classList.remove('scale-100', 'opacity-100');
+  
+  setTimeout(() => {
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
+  }, 300);
+}
+
+// Submit newsletter form
+function submitNewsletterForm(event) {
+  event.preventDefault();
+  const form = event.target;
+  const email = form.email.value;
+  
+  // Submit to Salla newsletter API
+  // In production, use actual Salla API endpoint
+  console.log('Subscribing email:', email);
+  
+  // Show success message
+  alert('{{ trans("newsletter.success_message") }}');
+  closeNewsletterPopup();
+  
+  // Set cookie to not show again for a while
+  setCookie('newsletter_popup_hidden', 'true', 7);
+}
+
+// Don't show again
+function dontShowAgain(checked) {
+  if (checked) {
+    setCookie('newsletter_popup_hidden', 'true', newsletterConfig.cookieDays);
+  }
+}
+
+// Cookie helpers
+function setCookie(name, value, days) {
+  const date = new Date();
+  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+}
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+// Initialize popup
+document.addEventListener('DOMContentLoaded', function() {
+  // Show after delay
+  if (newsletterConfig.delay > 0) {
+    setTimeout(showNewsletterPopup, newsletterConfig.delay);
+  }
+  
+  // Show on exit intent
+  if (newsletterConfig.showOnExit) {
+    document.addEventListener('mouseout', function(e) {
+      if (e.clientY < 0) {
+        showNewsletterPopup();
+      }
+    });
+  }
+  
+  // Close on overlay click
+  document.querySelector('.newsletter-popup-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeNewsletterPopup();
+    }
+  });
+});
+</script>

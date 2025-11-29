@@ -1,0 +1,155 @@
+{#
+  Social Proof Component
+  عرض إشعارات المبيعات الأخيرة
+#}
+
+<div class="social-proof-notifications fixed bottom-6 {{ block.position|default('left-6') }} z-50 max-w-sm" data-block-id="{{ block.id }}">
+  {# Notification Template (will be populated by JavaScript) #}
+  <div class="notification hidden bg-white rounded-lg shadow-2xl p-4 transform transition-all duration-300 translate-y-full opacity-0">
+    <div class="flex items-center gap-4">
+      {# Product Image #}
+      <div class="notification-image flex-shrink-0">
+        <img 
+          src="" 
+          alt=""
+          class="w-16 h-16 rounded-lg object-cover"
+        >
+      </div>
+
+      {# Notification Content #}
+      <div class="notification-content flex-1">
+        <div class="notification-customer font-semibold text-gray-900 mb-1"></div>
+        <div class="notification-action text-sm text-gray-600 mb-1"></div>
+        <div class="notification-product text-sm text-primary-600 font-medium"></div>
+        <div class="notification-time text-xs text-gray-400"></div>
+      </div>
+
+      {# Close Button #}
+      <button class="notification-close flex-shrink-0 text-gray-400 hover:text-gray-600" onclick="closeNotification(this)">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Social Proof Configuration
+const socialProofConfig = {
+  enabled: {{ block.enabled|default(true) ? 'true' : 'false' }},
+  interval: {{ block.interval|default(10000) }}, // milliseconds
+  displayDuration: {{ block.display_duration|default(5000) }}, // milliseconds
+  maxNotifications: {{ block.max_notifications|default(5) }},
+  notifications: []
+};
+
+// Sample notifications data (in production, this would come from API)
+const sampleNotifications = [
+  {
+    customer: 'أحمد محمد',
+    action: 'قام بشراء',
+    product: 'ساعة ذكية',
+    productImage: '/assets/images/products/watch.jpg',
+    time: 'منذ 5 دقائق'
+  },
+  {
+    customer: 'فاطمة علي',
+    action: 'أضافت إلى السلة',
+    product: 'حقيبة جلدية',
+    productImage: '/assets/images/products/bag.jpg',
+    time: 'منذ 10 دقائق'
+  },
+  {
+    customer: 'محمد سعيد',
+    action: 'قام بشراء',
+    product: 'سماعات لاسلكية',
+    productImage: '/assets/images/products/headphones.jpg',
+    time: 'منذ 15 دقيقة'
+  }
+];
+
+// Social Proof Functionality
+let notificationIndex = 0;
+let notificationTimeout;
+
+function showSocialProofNotification() {
+  if (!socialProofConfig.enabled) return;
+
+  const notification = document.querySelector('.social-proof-notifications .notification');
+  if (!notification) return;
+
+  // Get next notification data
+  const data = sampleNotifications[notificationIndex % sampleNotifications.length];
+  notificationIndex++;
+
+  // Populate notification
+  notification.querySelector('.notification-image img').src = data.productImage;
+  notification.querySelector('.notification-image img').alt = data.product;
+  notification.querySelector('.notification-customer').textContent = data.customer;
+  notification.querySelector('.notification-action').textContent = data.action;
+  notification.querySelector('.notification-product').textContent = data.product;
+  notification.querySelector('.notification-time').textContent = data.time;
+
+  // Show notification
+  notification.classList.remove('hidden', 'translate-y-full', 'opacity-0');
+  notification.classList.add('translate-y-0', 'opacity-100');
+
+  // Hide notification after duration
+  clearTimeout(notificationTimeout);
+  notificationTimeout = setTimeout(() => {
+    hideNotification(notification);
+  }, socialProofConfig.displayDuration);
+}
+
+function hideNotification(notification) {
+  notification.classList.add('translate-y-full', 'opacity-0');
+  setTimeout(() => {
+    notification.classList.add('hidden');
+  }, 300);
+}
+
+function closeNotification(button) {
+  const notification = button.closest('.notification');
+  hideNotification(notification);
+  clearTimeout(notificationTimeout);
+}
+
+// Start showing notifications
+if (socialProofConfig.enabled) {
+  // Show first notification after initial delay
+  setTimeout(() => {
+    showSocialProofNotification();
+    
+    // Show subsequent notifications at intervals
+    setInterval(showSocialProofNotification, socialProofConfig.interval);
+  }, 3000);
+}
+
+// Fetch real notifications from API (optional)
+function fetchRecentOrders() {
+  // In production, fetch from Salla API
+  // fetch('/api/recent-orders')
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     socialProofConfig.notifications = data;
+  //   });
+}
+</script>
+
+<style>
+.social-proof-notifications {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+</style>

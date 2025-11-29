@@ -1,0 +1,70 @@
+{#
+  Countdown Banner Component
+  بانر مع عداد تنازلي للعروض
+#}
+
+<section class="countdown-banner-section py-12" data-block-id="{{ block.id }}">
+  <div class="container mx-auto px-4">
+    <div class="countdown-banner relative rounded-2xl overflow-hidden {{ block.background_color|default('bg-gradient-to-r from-primary-600 to-secondary-600') }} text-white">
+      {# Background Image (Optional) #}
+      {% if block.background_image %}
+      <div class="absolute inset-0">
+        <img 
+          src="{{ block.background_image }}" 
+          alt="{{ block.title }}"
+          class="w-full h-full object-cover opacity-20"
+        >
+      </div>
+      {% endif %}
+
+      <div class="relative z-10 py-16 px-8 text-center">
+        {# Title #}
+        {% if block.title %}
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+          {{ block.title }}
+        </h2>
+        {% endif %}
+
+        {# Subtitle #}
+        {% if block.subtitle %}
+        <p class="text-xl md:text-2xl mb-8 opacity-90">
+          {{ block.subtitle }}
+        </p>
+        {% endif %}
+
+        {# Countdown Timer #}
+        <div class="countdown-timer flex justify-center items-center gap-4 mb-8" data-end-date="{{ block.end_date }}">
+          <div class="time-unit">
+            <div class="time-value text-5xl md:text-6xl font-bold bg-white/20 rounded-lg px-6 py-4 backdrop-blur-sm" data-days>00</div>
+            <div class="time-label text-sm mt-2 opacity-80">{{ trans('common.days') }}</div>
+          </div>
+          <div class="time-separator text-4xl font-bold">:</div>
+          <div class="time-unit">
+            <div class="time-value text-5xl md:text-6xl font-bold bg-white/20 rounded-lg px-6 py-4 backdrop-blur-sm" data-hours>00</div>
+            <div class="time-label text-sm mt-2 opacity-80">{{ trans('common.hours') }}</div>
+          </div>
+          <div class="time-separator text-4xl font-bold">:</div>
+          <div class="time-unit">
+            <div class="time-value text-5xl md:text-6xl font-bold bg-white/20 rounded-lg px-6 py-4 backdrop-blur-sm" data-minutes>00</div>
+            <div class="time-label text-sm mt-2 opacity-80">{{ trans('common.minutes') }}</div>
+          </div>
+          <div class="time-separator text-4xl font-bold">:</div>
+          <div class="time-unit">
+            <div class="time-value text-5xl md:text-6xl font-bold bg-white/20 rounded-lg px-6 py-4 backdrop-blur-sm" data-seconds>00</div>
+            <div class="time-label text-sm mt-2 opacity-80">{{ trans('common.seconds') }}</div>
+          </div>
+        </div>
+
+        {# CTA Button #}
+        {% if block.button_text and block.button_link %}
+        <a 
+          href="{{ block.button_link }}" 
+          class="inline-block bg-white text-primary-600 font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors duration-300 text-lg"
+        >
+          {{ block.button_text }}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

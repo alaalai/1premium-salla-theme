@@ -1,0 +1,82 @@
+{#
+  Pricing Table Component
+  عرض خطط الأسعار أو الباقات
+#}
+
+<section class="pricing-table-section py-16 bg-white" data-block-id="{{ block.id }}">
+  <div class="container mx-auto px-4">
+    {% if block.title %}
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        {{ block.title }}
+      </h2>
+      {% if block.subtitle %}
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ block.subtitle }}</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="pricing-grid grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {% for plan in block.pricing_plans %}
+      <div class="pricing-card {{ plan.featured ? 'featured' : '' }} relative bg-white rounded-2xl border-2 {{ plan.featured ? 'border-primary-600 shadow-2xl scale-105' : 'border-gray-200 shadow-lg' }} overflow-hidden transition-all duration-300 hover:shadow-2xl">
+        {# Featured Badge #}
+        {% if plan.featured %}
+        <div class="absolute top-0 left-0 right-0 bg-primary-600 text-white text-center py-2 text-sm font-semibold">
+          {{ trans('pricing.most_popular') }}
+        </div>
+        {% endif %}
+
+        <div class="p-8 {{ plan.featured ? 'pt-12' : '' }}">
+          {# Plan Name #}
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ plan.name }}</h3>
+          
+          {# Plan Description #}
+          {% if plan.description %}
+          <p class="text-gray-600 mb-6">{{ plan.description }}</p>
+          {% endif %}
+
+          {# Price #}
+          <div class="mb-6">
+            <div class="flex items-baseline justify-center">
+              <span class="text-5xl font-bold text-gray-900">{{ plan.price }}</span>
+              <span class="text-gray-600 mr-2">{{ plan.currency|default('ر.س') }}</span>
+            </div>
+            {% if plan.period %}
+            <div class="text-gray-500 text-center mt-1">{{ plan.period }}</div>
+            {% endif %}
+          </div>
+
+          {# Features List #}
+          {% if plan.features %}
+          <ul class="space-y-4 mb-8">
+            {% for feature in plan.features %}
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-{{ plan.featured ? 'primary' : 'green' }}-600 ml-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">{{ feature }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+
+          {# CTA Button #}
+          <a 
+            href="{{ plan.button_link|default('#') }}" 
+            class="block w-full text-center font-bold px-6 py-4 rounded-lg transition-all duration-300 {{ plan.featured ? 'bg-primary-600 text-white hover:bg-primary-700' : 'bg-gray-100 text-gray-900 hover:bg-gray-200' }}"
+          >
+            {{ plan.button_text|default(trans('pricing.get_started')) }}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {# Additional Info #}
+    {% if block.additional_info %}
+    <div class="text-center mt-12 text-gray-600">
+      {{ block.additional_info|raw }}
+    </div>
+    {% endif %}
+  </div>
+</section>

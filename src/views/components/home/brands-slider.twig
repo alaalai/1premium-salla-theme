@@ -1,0 +1,56 @@
+{#
+  Brands Slider Component
+  عرض العلامات التجارية في سلايدر احترافي
+#}
+
+<section class="brands-slider-section py-12 bg-gray-50" data-block-id="{{ block.id }}">
+  <div class="container mx-auto px-4">
+    {% if block.title %}
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">
+        {{ block.title }}
+      </h2>
+      {% if block.subtitle %}
+      <p class="text-gray-600">{{ block.subtitle }}</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="brands-slider swiper" data-autoplay="{{ block.autoplay|default(true) }}" data-speed="{{ block.speed|default(3000) }}">
+      <div class="swiper-wrapper items-center">
+        {% for brand in block.brands %}
+        <div class="swiper-slide">
+          <div class="brand-item flex items-center justify-center p-6 bg-white rounded-lg hover:shadow-lg transition-shadow duration-300">
+            {% if brand.link %}
+            <a href="{{ brand.link }}" class="block" aria-label="{{ brand.name }}">
+              <img 
+                src="{{ brand.image }}" 
+                alt="{{ brand.name }}"
+                class="max-h-16 w-auto mx-auto grayscale hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              >
+            </a>
+            {% else %}
+            <img 
+              src="{{ brand.image }}" 
+              alt="{{ brand.name }}"
+              class="max-h-16 w-auto mx-auto grayscale hover:grayscale-0 transition-all duration-300"
+              loading="lazy"
+            >
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+      {% if block.show_navigation|default(true) %}
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      {% endif %}
+      
+      {% if block.show_pagination|default(false) %}
+      <div class="swiper-pagination"></div>
+      {% endif %}
+    </div>
+  </div>
+</section>

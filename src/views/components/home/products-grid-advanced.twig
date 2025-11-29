@@ -1,0 +1,123 @@
+{#
+  Products Grid Advanced Component
+  عرض منتجات بتصميم Grid متقدم مع فلاتر
+#}
+
+<section class="products-grid-advanced-section py-16 bg-white" data-block-id="{{ block.id }}">
+  <div class="container mx-auto px-4">
+    {% if block.title %}
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        {{ block.title }}
+      </h2>
+      {% if block.subtitle %}
+      <p class="text-lg text-gray-600">{{ block.subtitle }}</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {# Filter & Sort Bar #}
+    {% if block.show_filters|default(true) %}
+    <div class="flex flex-wrap justify-between items-center mb-8 gap-4">
+      {# Category Filter #}
+      <div class="flex flex-wrap gap-2">
+        <button class="filter-btn active px-4 py-2 rounded-lg font-semibold bg-primary-600 text-white" data-category="all">
+          {{ trans('common.all') }}
+        </button>
+        {% for category in block.categories %}
+        <button class="filter-btn px-4 py-2 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-primary-600 hover:text-white transition-colors duration-300" data-category="{{ category.id }}">
+          {{ category.name }}
+        </button>
+        {% endfor %}
+      </div>
+
+      {# Sort Dropdown #}
+      <div class="relative">
+        <select class="sort-select px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-600">
+          <option value="default">{{ trans('products.sort.default') }}</option>
+          <option value="price-asc">{{ trans('products.sort.price_low_high') }}</option>
+          <option value="price-desc">{{ trans('products.sort.price_high_low') }}</option>
+          <option value="name-asc">{{ trans('products.sort.name_a_z') }}</option>
+          <option value="name-desc">{{ trans('products.sort.name_z_a') }}</option>
+        </select>
+      </div>
+    </div>
+    {% endif %}
+
+    {# Products Grid #}
+    <div class="products-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-products-container>
+      {% for product in salla.products.all(block.products_count|default(12)) %}
+        {% include 'partials.product-card' with {product: product} %}
+      {% endfor %}
+    </div>
+
+    {# Load More Button #}
+    {% if block.show_load_more|default(true) %}
+    <div class="text-center mt-12">
+      <button 
+        class="load-more-btn inline-block bg-primary-600 text-white font-bold px-8 py-3 rounded-lg hover:bg-primary-700 transition-colors duration-300"
+        data-page="1"
+      >
+        {{ trans('common.load_more') }}
+      </button>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const sortSelect = document.querySelector('.sort-select');
+  const productsContainer = document.querySelector('[data-products-container]');
+  const loadMoreBtn = document.querySelector('.load-more-btn');
+
+  // Filter functionality
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(b => {
+        b.classList.remove('active', 'bg-primary-600', 'text-white');
+        b.classList.add('bg-gray-100', 'text-gray-700');
+      });
+      this.classList.add('active', 'bg-primary-600', 'text-white');
+      this.classList.remove('bg-gray-100', 'text-gray-700');
+
+      const category = this.getAttribute('data-category');
+      filterProducts(category);
+    });
+  });
+
+  // Sort functionality
+  if (sortSelect) {
+    sortSelect.addEventListener('change', function() {
+      const sortValue = this.value;
+      sortProducts(sortValue);
+    });
+  }
+
+  // Load more functionality
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', function() {
+      const currentPage = parseInt(this.getAttribute('data-page'));
+      const nextPage = currentPage + 1;
+      loadMoreProducts(nextPage);
+      this.setAttribute('data-page', nextPage);
+    });
+  }
+
+  function filterProducts(category) {
+    // Implement filter logic with AJAX or client-side filtering
+    console.log('Filtering by category:', category);
+  }
+
+  function sortProducts(sortValue) {
+    // Implement sort logic
+    console.log('Sorting by:', sortValue);
+  }
+
+  function loadMoreProducts(page) {
+    // Implement load more logic with AJAX
+    console.log('Loading page:', page);
+  }
+});
+</script>

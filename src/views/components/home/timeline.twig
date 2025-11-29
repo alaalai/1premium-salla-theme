@@ -1,0 +1,75 @@
+{#
+  Timeline Component
+  عرض تاريخ المتجر أو الإنجازات
+#}
+
+<section class="timeline-section py-16 bg-gray-50" data-block-id="{{ block.id }}">
+  <div class="container mx-auto px-4">
+    {% if block.title %}
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        {{ block.title }}
+      </h2>
+      {% if block.subtitle %}
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ block.subtitle }}</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="timeline relative max-w-4xl mx-auto">
+      {# Timeline Line #}
+      <div class="absolute right-1/2 top-0 bottom-0 w-0.5 bg-primary-200 hidden md:block"></div>
+
+      {% for event in block.timeline_events %}
+      <div class="timeline-item relative mb-12 {{ loop.index is odd ? 'md:text-right md:pr-1/2 md:pl-8' : 'md:text-left md:pl-1/2 md:pr-8' }}">
+        {# Timeline Dot #}
+        <div class="absolute right-1/2 top-6 w-4 h-4 bg-primary-600 rounded-full border-4 border-white shadow-lg transform -translate-x-1/2 hidden md:block"></div>
+
+        {# Event Card #}
+        <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300">
+          {# Year/Date #}
+          <div class="inline-block bg-primary-600 text-white px-4 py-1 rounded-full text-sm font-semibold mb-3">
+            {{ event.date }}
+          </div>
+
+          {# Event Title #}
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">
+            {{ event.title }}
+          </h3>
+
+          {# Event Description #}
+          {% if event.description %}
+          <p class="text-gray-700 leading-relaxed mb-4">
+            {{ event.description }}
+          </p>
+          {% endif %}
+
+          {# Event Image (Optional) #}
+          {% if event.image %}
+          <div class="rounded-lg overflow-hidden">
+            <img 
+              src="{{ event.image }}" 
+              alt="{{ event.title }}"
+              class="w-full h-48 object-cover"
+              loading="lazy"
+            >
+          </div>
+          {% endif %}
+
+          {# Event Stats (Optional) #}
+          {% if event.stats %}
+          <div class="flex flex-wrap gap-4 mt-4 pt-4 border-t border-gray-200">
+            {% for stat in event.stats %}
+            <div class="flex items-center text-sm">
+              <span class="font-bold text-primary-600 ml-1">{{ stat.value }}</span>
+              <span class="text-gray-600">{{ stat.label }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

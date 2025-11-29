@@ -1,0 +1,61 @@
+{#
+  Collection List Component
+  عرض مجموعات المنتجات
+#}
+
+<section class="collection-list-section py-16 bg-gray-50" data-block-id="{{ block.id }}">
+  <div class="container mx-auto px-4">
+    {% if block.title %}
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        {{ block.title }}
+      </h2>
+      {% if block.subtitle %}
+      <p class="text-lg text-gray-600">{{ block.subtitle }}</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="collections-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for collection in block.collections %}
+      <div class="collection-card group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+        {# Collection Image #}
+        <div class="relative h-80 overflow-hidden">
+          <img 
+            src="{{ collection.image }}" 
+            alt="{{ collection.name }}"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            loading="lazy"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+          
+          {# Collection Info Overlay #}
+          <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+            <h3 class="text-2xl font-bold mb-2">{{ collection.name }}</h3>
+            {% if collection.description %}
+            <p class="text-sm opacity-90 mb-4">{{ collection.description }}</p>
+            {% endif %}
+            {% if collection.products_count %}
+            <div class="text-sm opacity-80">
+              {{ collection.products_count }} {{ trans('common.products') }}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        {# Hover Overlay with CTA #}
+        <a 
+          href="{{ collection.url }}" 
+          class="absolute inset-0 flex items-center justify-center bg-primary-600/0 group-hover:bg-primary-600/90 transition-all duration-300"
+        >
+          <div class="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+            <span class="inline-block bg-white text-primary-600 font-bold px-6 py-3 rounded-lg">
+              {{ trans('common.shop_now') }}
+            </span>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

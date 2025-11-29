@@ -23,13 +23,71 @@
     "close": "إغلاق",
     "loading": "جاري التحميل...",
     "no_results": "لا توجد نتائج",
-    "currency": "ر.س"
+    "currency": "ر.س",
+    "days": "أيام",
+    "hours": "ساعات",
+    "minutes": "دقائق",
+    "seconds": "ثواني",
+    "shop_now": "تسوق الآن",
+    "read_more": "اقرأ المزيد",
+    "view_all_products": "عرض جميع المنتجات",
+    "view_all_posts": "عرض جميع المقالات",
+    "contact_us": "اتصل بنا",
+    "get_directions": "احصل على الاتجاهات",
+    "follow_us": "تابعنا",
+    "load_more": "تحميل المزيد",
+    "all": "الكل",
+    "video_not_supported": "متصفحك لا يدعم تشغيل الفيديو"
   },
   "header": {
     "welcome": "مرحباً بك",
     "search_placeholder": "ابحث عن منتجات...",
     "cart_empty": "السلة فارغة",
     "wishlist_empty": "المفضلة فارغة"
+  },
+  "products": {
+    "latest": "الأحدث",
+    "featured": "المميزة",
+    "on_sale": "العروض",
+    "sort": {
+      "default": "الترتيب الافتراضي",
+      "price_low_high": "السعر: من الأقل للأعلى",
+      "price_high_low": "السعر: من الأعلى للأقل",
+      "name_a_z": "الاسم: أ - ي",
+      "name_z_a": "الاسم: ي - أ"
+    }
+  },
+  "newsletter": {
+    "email_placeholder": "أدخل بريدك الإلكتروني",
+    "subscribe": "اشترك الآن",
+    "privacy_notice": "نحن نحترم خصوصيتك ولن نشارك بريدك الإلكتروني مع أي طرف ثالث",
+    "dont_show_again": "لا تظهر هذه الرسالة مرة أخرى",
+    "success_message": "شكراً لاشتراكك في نشرتنا البريدية!"
+  },
+  "app": {
+    "download_on": "حمّل من",
+    "get_it_on": "احصل عليه من",
+    "scan_qr": "امسح رمز QR للتحميل"
+  },
+  "faq": {
+    "still_have_questions": "لا زال لديك أسئلة؟",
+    "contact_support_text": "فريق الدعم لدينا جاهز لمساعدتك في أي وقت"
+  },
+  "team": {
+    "join_our_team": "انضم إلى فريقنا",
+    "join_text": "نحن نبحث دائماً عن مواهب جديدة للانضمام إلى فريقنا",
+    "view_openings": "عرض الوظائف المتاحة"
+  },
+  "pricing": {
+    "most_popular": "الأكثر شعبية",
+    "get_started": "ابدأ الآن"
+  },
+  "contact": {
+    "address": "العنوان",
+    "phone": "الهاتف",
+    "email": "البريد الإلكتروني",
+    "working_hours": "ساعات العمل",
+    "map_placeholder": "الخريطة غير متوفرة"
   },
   "footer": {
     "about_us": "من نحن",

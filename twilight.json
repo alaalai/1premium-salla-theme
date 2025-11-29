@@ -1,7 +1,7 @@
 {
   "name": "Premium Salla Theme",
-  "version": "1.0.0",
-  "description": "A premium professional Salla theme with advanced features and customization options",
+  "version": "1.1.0",
+  "description": "A premium professional Salla theme with 24+ home blocks and advanced features",
   "author": "Alaa",
   "license": "MIT",
   "support": {
@@ -167,6 +167,18 @@
       "type": "text",
       "title": "عمليات البحث الشائعة (مفصولة بفاصلة)",
       "default": "ساعات,أحذية,حقائب,عطور"
+    },
+    {
+      "key": "enable_social_proof",
+      "type": "switch",
+      "title": "تفعيل الإثبات الاجتماعي",
+      "default": true
+    },
+    {
+      "key": "enable_newsletter_popup",
+      "type": "switch",
+      "title": "تفعيل نافذة النشرة البريدية",
+      "default": true
     }
   ],
   "blocks": [
@@ -175,277 +187,168 @@
       "title": "قسم البطل (Hero)",
       "description": "عرض شرائح أو صورة رئيسية في أعلى الصفحة",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": [
-        {
-          "key": "style",
-          "type": "select",
-          "title": "نمط العرض",
-          "options": {
-            "slider": "عرض شرائح",
-            "single": "صورة واحدة"
-          },
-          "default": "slider"
-        },
-        {
-          "key": "height",
-          "type": "select",
-          "title": "ارتفاع القسم",
-          "options": {
-            "small": "صغير",
-            "medium": "متوسط",
-            "large": "كبير"
-          },
-          "default": "large"
-        },
-        {
-          "key": "show_overlay",
-          "type": "switch",
-          "title": "إظهار طبقة التعتيم",
-          "default": true
-        },
-        {
-          "key": "slides",
-          "type": "repeater",
-          "title": "الشرائح",
-          "fields": [
-            {
-              "key": "image",
-              "type": "image",
-              "title": "الصورة"
-            },
-            {
-              "key": "title",
-              "type": "text",
-              "title": "العنوان"
-            },
-            {
-              "key": "subtitle",
-              "type": "text",
-              "title": "العنوان الفرعي"
-            },
-            {
-              "key": "description",
-              "type": "textarea",
-              "title": "الوصف"
-            },
-            {
-              "key": "button_text",
-              "type": "text",
-              "title": "نص الزر"
-            },
-            {
-              "key": "button_link",
-              "type": "url",
-              "title": "رابط الزر"
-            },
-            {
-              "key": "text_align",
-              "type": "select",
-              "title": "محاذاة النص",
-              "options": {
-                "text-right": "يمين",
-                "text-center": "وسط",
-                "text-left": "يسار"
-              },
-              "default": "text-right"
-            }
-          ]
-        }
-      ]
+      "fields": []
     },
     {
       "name": "products-slider",
       "title": "عارض المنتجات",
       "description": "عرض المنتجات في شريط تمرير أفقي",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": [
-        {
-          "key": "title",
-          "type": "text",
-          "title": "عنوان القسم",
-          "default": "منتجاتنا"
-        },
-        {
-          "key": "subtitle",
-          "type": "text",
-          "title": "العنوان الفرعي"
-        },
-        {
-          "key": "products_source",
-          "type": "select",
-          "title": "مصدر المنتجات",
-          "options": {
-            "latest": "الأحدث",
-            "featured": "المميزة",
-            "bestsellers": "الأكثر مبيعاً",
-            "sale": "العروض",
-            "custom": "مخصص"
-          },
-          "default": "latest"
-        },
-        {
-          "key": "product_ids",
-          "type": "text",
-          "title": "معرفات المنتجات (للمخصص)",
-          "hint": "أدخل معرفات المنتجات مفصولة بفاصلة"
-        },
-        {
-          "key": "products_limit",
-          "type": "number",
-          "title": "عدد المنتجات",
-          "default": 12,
-          "min": 4,
-          "max": 24
-        },
-        {
-          "key": "slides_per_view",
-          "type": "number",
-          "title": "عدد المنتجات المعروضة",
-          "default": 4,
-          "min": 2,
-          "max": 6
-        },
-        {
-          "key": "show_arrows",
-          "type": "switch",
-          "title": "إظهار الأسهم",
-          "default": true
-        },
-        {
-          "key": "show_dots",
-          "type": "switch",
-          "title": "إظهار النقاط",
-          "default": true
-        },
-        {
-          "key": "view_all_link",
-          "type": "url",
-          "title": "رابط عرض الكل"
-        }
-      ]
+      "fields": []
     },
     {
       "name": "features",
       "title": "الميزات والخدمات",
       "description": "عرض ميزات وخدمات المتجر",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": [
-        {
-          "key": "title",
-          "type": "text",
-          "title": "عنوان القسم",
-          "default": "لماذا نحن؟"
-        },
-        {
-          "key": "style",
-          "type": "select",
-          "title": "نمط القسم",
-          "options": {
-            "default": "افتراضي",
-            "gradient": "متدرج"
-          },
-          "default": "default"
-        },
-        {
-          "key": "features",
-          "type": "repeater",
-          "title": "الميزات",
-          "fields": [
-            {
-              "key": "icon",
-              "type": "select",
-              "title": "الأيقونة",
-              "options": {
-                "truck": "شحن",
-                "shield": "أمان",
-                "refresh": "إرجاع",
-                "support": "دعم",
-                "gift": "هدايا",
-                "star": "جودة"
-              },
-              "default": "truck"
-            },
-            {
-              "key": "title",
-              "type": "text",
-              "title": "العنوان"
-            },
-            {
-              "key": "description",
-              "type": "textarea",
-              "title": "الوصف"
-            }
-          ]
-        }
-      ]
+      "fields": []
     },
     {
       "name": "categories-grid",
       "title": "شبكة الأقسام",
       "description": "عرض أقسام المنتجات في شبكة",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": [
-        {
-          "key": "title",
-          "type": "text",
-          "title": "عنوان القسم",
-          "default": "تسوق حسب القسم"
-        },
-        {
-          "key": "subtitle",
-          "type": "text",
-          "title": "العنوان الفرعي"
-        },
-        {
-          "key": "categories_source",
-          "type": "select",
-          "title": "مصدر الأقسام",
-          "options": {
-            "all": "جميع الأقسام",
-            "featured": "الأقسام المميزة",
-            "custom": "مخصص"
-          },
-          "default": "all"
-        },
-        {
-          "key": "category_ids",
-          "type": "text",
-          "title": "معرفات الأقسام (للمخصص)",
-          "hint": "أدخل معرفات الأقسام مفصولة بفاصلة"
-        },
-        {
-          "key": "categories_limit",
-          "type": "number",
-          "title": "عدد الأقسام",
-          "default": 8,
-          "min": 4,
-          "max": 16
-        },
-        {
-          "key": "grid_columns",
-          "type": "select",
-          "title": "عدد الأعمدة",
-          "options": {
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "6": "6"
-          },
-          "default": "4"
-        },
-        {
-          "key": "show_products_count",
-          "type": "switch",
-          "title": "إظهار عدد المنتجات",
-          "default": true
-        },
-        {
-          "key": "show_view_all",
-          "type": "switch",
-          "title": "إظهار زر عرض الكل",
-          "default": true
-        }
-      ]
+      "fields": []
+    },
+    {
+      "name": "brands-slider",
+      "title": "عارض العلامات التجارية",
+      "description": "عرض شعارات العلامات التجارية في سلايدر",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "testimonials",
+      "title": "آراء العملاء",
+      "description": "عرض تقييمات وآراء العملاء",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "countdown-banner",
+      "title": "بانر العد التنازلي",
+      "description": "بانر مع عداد تنازلي للعروض",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "video-section",
+      "title": "قسم الفيديو",
+      "description": "عرض فيديو تعريفي أو ترويجي",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "instagram-feed",
+      "title": "خلاصة Instagram",
+      "description": "عرض آخر منشورات Instagram",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "products-tabs",
+      "title": "منتجات بتبويبات",
+      "description": "عرض منتجات مع تبويبات (جديد، مميز، عروض)",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "image-text-split",
+      "title": "صورة ونص منقسم",
+      "description": "قسم بصورة ونص جنباً إلى جنب",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "stats-counter",
+      "title": "عداد الإحصائيات",
+      "description": "عرض إحصائيات المتجر مع أرقام متحركة",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "blog-posts",
+      "title": "آخر المقالات",
+      "description": "عرض آخر مقالات المدونة",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "parallax-banner",
+      "title": "بانر Parallax",
+      "description": "بانر مع تأثير Parallax",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "products-grid-advanced",
+      "title": "شبكة منتجات متقدمة",
+      "description": "عرض منتجات بتصميم Grid متقدم مع فلاتر",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "collection-list",
+      "title": "قائمة المجموعات",
+      "description": "عرض مجموعات المنتجات",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "app-download",
+      "title": "تحميل التطبيق",
+      "description": "قسم لتحميل تطبيق الجوال",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "faq-accordion",
+      "title": "الأسئلة الشائعة",
+      "description": "قسم الأسئلة الشائعة بتصميم Accordion",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "team-members",
+      "title": "فريق العمل",
+      "description": "عرض أعضاء فريق العمل",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "pricing-table",
+      "title": "جدول الأسعار",
+      "description": "عرض خطط الأسعار أو الباقات",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "timeline",
+      "title": "الخط الزمني",
+      "description": "عرض تاريخ المتجر أو الإنجازات",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "map-section",
+      "title": "قسم الخريطة",
+      "description": "عرض موقع المتجر على الخريطة",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "social-proof",
+      "title": "إثبات اجتماعي",
+      "description": "عرض إشعارات المبيعات الأخيرة",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
+    },
+    {
+      "name": "newsletter-popup",
+      "title": "نافذة النشرة البريدية",
+      "description": "نافذة منبثقة للاشتراك في النشرة البريدية",
+      "preview": "https://via.placeholder.com/800x400",
+      "fields": []
     }
   ]
 }

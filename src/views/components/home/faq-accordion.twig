@@ -1,0 +1,79 @@
+{#
+  FAQ Accordion Component
+  الأسئلة الشائعة بتصميم Accordion
+#}
+
+<section class="faq-accordion-section py-16 bg-white" data-block-id="{{ block.id }}">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      {% if block.title %}
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+          {{ block.title }}
+        </h2>
+        {% if block.subtitle %}
+        <p class="text-lg text-gray-600">{{ block.subtitle }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <div class="faq-accordion space-y-4">
+        {% for faq in block.faqs %}
+        <div class="faq-item border border-gray-200 rounded-lg overflow-hidden">
+          <button 
+            class="faq-question w-full flex justify-between items-center p-6 text-right hover:bg-gray-50 transition-colors duration-300"
+            onclick="toggleFAQ(this)"
+          >
+            <span class="text-lg font-semibold text-gray-900">{{ faq.question }}</span>
+            <svg class="faq-icon w-6 h-6 text-primary-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer hidden p-6 pt-0 text-gray-700 leading-relaxed">
+            {{ faq.answer|raw }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      {# Contact Support CTA #}
+      {% if block.show_contact_cta|default(true) %}
+      <div class="text-center mt-12 p-8 bg-gray-50 rounded-xl">
+        <h3 class="text-2xl font-bold text-gray-900 mb-3">
+          {{ trans('faq.still_have_questions') }}
+        </h3>
+        <p class="text-gray-600 mb-6">
+          {{ trans('faq.contact_support_text') }}
+        </p>
+        <a 
+          href="{{ link('contact') }}" 
+          class="inline-block bg-primary-600 text-white font-bold px-8 py-3 rounded-lg hover:bg-primary-700 transition-colors duration-300"
+        >
+          {{ trans('common.contact_us') }}
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleFAQ(button) {
+  const faqItem = button.closest('.faq-item');
+  const answer = faqItem.querySelector('.faq-answer');
+  const icon = button.querySelector('.faq-icon');
+  const allItems = document.querySelectorAll('.faq-item');
+
+  // Close all other FAQs
+  allItems.forEach(item => {
+    if (item !== faqItem) {
+      item.querySelector('.faq-answer').classList.add('hidden');
+      item.querySelector('.faq-icon').classList.remove('rotate-180');
+    }
+  });
+
+  // Toggle current FAQ
+  answer.classList.toggle('hidden');
+  icon.classList.toggle('rotate-180');
+}
+</script>

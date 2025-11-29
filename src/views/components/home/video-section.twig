@@ -1,0 +1,87 @@
+{#
+  Video Section Component
+  عرض فيديو تعريفي أو ترويجي
+#}
+
+<section class="video-section py-16 bg-gray-50" data-block-id="{{ block.id }}">
+  <div class="container mx-auto px-4">
+    <div class="max-w-6xl mx-auto">
+      {% if block.title %}
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+          {{ block.title }}
+        </h2>
+        {% if block.subtitle %}
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ block.subtitle }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <div class="video-wrapper relative rounded-2xl overflow-hidden shadow-2xl">
+        {% if block.video_type == 'youtube' %}
+        {# YouTube Video #}
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe 
+            src="https://www.youtube.com/embed/{{ block.video_id }}?rel=0&modestbranding=1"
+            title="{{ block.title }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="w-full h-full"
+          ></iframe>
+        </div>
+        
+        {% elseif block.video_type == 'vimeo' %}
+        {# Vimeo Video #}
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe 
+            src="https://player.vimeo.com/video/{{ block.video_id }}?title=0&byline=0&portrait=0"
+            title="{{ block.title }}"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
+            class="w-full h-full"
+          ></iframe>
+        </div>
+        
+        {% elseif block.video_type == 'custom' %}
+        {# Custom Video with Poster #}
+        <div class="relative">
+          <video 
+            class="w-full h-auto"
+            controls
+            {% if block.poster_image %}poster="{{ block.poster_image }}"{% endif %}
+            {% if block.autoplay %}autoplay{% endif %}
+            {% if block.loop %}loop{% endif %}
+            {% if block.muted %}muted{% endif %}
+          >
+            <source src="{{ block.video_url }}" type="video/mp4">
+            {{ trans('common.video_not_supported') }}
+          </video>
+        </div>
+        {% endif %}
+
+        {# Play Button Overlay (for custom videos with poster) #}
+        {% if block.video_type == 'custom' and block.poster_image and not block.autoplay %}
+        <button 
+          class="video-play-button absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors duration-300 group"
+          onclick="this.parentElement.querySelector('video').play(); this.style.display='none';"
+        >
+          <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-10 h-10 text-primary-600 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+            </svg>
+          </div>
+        </button>
+        {% endif %}
+      </div>
+
+      {# Description #}
+      {% if block.description %}
+      <div class="text-center mt-8">
+        <p class="text-gray-700 max-w-3xl mx-auto">{{ block.description }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
