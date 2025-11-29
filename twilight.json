@@ -12,6 +12,49 @@
     "desktop": "https://via.placeholder.com/1920x1080",
     "mobile": "https://via.placeholder.com/375x667"
   },
+  "layouts": [
+    {
+      "name": "master",
+      "title": "القالب الرئيسي",
+      "description": "القالب الأساسي لجميع الصفحات",
+      "template": "layouts/master.twig"
+    }
+  ],
+  "pages": [
+    {
+      "name": "home",
+      "title": "الصفحة الرئيسية",
+      "description": "واجهة المتجر الرئيسية مع جميع العناصر",
+      "layout": "master",
+      "template": "pages/home.twig",
+      "blocks": [
+        "hero",
+        "features",
+        "products-slider",
+        "categories-grid",
+        "brands-slider",
+        "testimonials",
+        "countdown-banner",
+        "video-section",
+        "products-tabs",
+        "image-text-split",
+        "stats-counter",
+        "blog-posts",
+        "instagram-feed",
+        "parallax-banner",
+        "products-grid-advanced",
+        "collection-list",
+        "app-download",
+        "faq-accordion",
+        "team-members",
+        "pricing-table",
+        "timeline",
+        "map-section",
+        "social-proof",
+        "newsletter-popup"
+      ]
+    }
+  ],
   "settings": [
     {
       "key": "header_style",
@@ -187,168 +230,192 @@
       "title": "قسم البطل (Hero)",
       "description": "عرض شرائح أو صورة رئيسية في أعلى الصفحة",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/hero.twig"
     },
     {
       "name": "products-slider",
       "title": "عارض المنتجات",
       "description": "عرض المنتجات في شريط تمرير أفقي",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/products-slider.twig"
     },
     {
       "name": "features",
       "title": "الميزات والخدمات",
       "description": "عرض ميزات وخدمات المتجر",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/features.twig"
     },
     {
       "name": "categories-grid",
       "title": "شبكة الأقسام",
       "description": "عرض أقسام المنتجات في شبكة",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/categories-grid.twig"
     },
     {
       "name": "brands-slider",
       "title": "عارض العلامات التجارية",
       "description": "عرض شعارات العلامات التجارية في سلايدر",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/brands-slider.twig"
     },
     {
       "name": "testimonials",
       "title": "آراء العملاء",
       "description": "عرض تقييمات وآراء العملاء",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/testimonials.twig"
     },
     {
       "name": "countdown-banner",
       "title": "بانر العد التنازلي",
       "description": "بانر مع عداد تنازلي للعروض",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/countdown-banner.twig"
     },
     {
       "name": "video-section",
       "title": "قسم الفيديو",
       "description": "عرض فيديو تعريفي أو ترويجي",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/video-section.twig"
     },
     {
       "name": "instagram-feed",
       "title": "خلاصة Instagram",
       "description": "عرض آخر منشورات Instagram",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/instagram-feed.twig"
     },
     {
       "name": "products-tabs",
       "title": "منتجات بتبويبات",
       "description": "عرض منتجات مع تبويبات (جديد، مميز، عروض)",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/products-tabs.twig"
     },
     {
       "name": "image-text-split",
       "title": "صورة ونص منقسم",
       "description": "قسم بصورة ونص جنباً إلى جنب",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/image-text-split.twig"
     },
     {
       "name": "stats-counter",
       "title": "عداد الإحصائيات",
       "description": "عرض إحصائيات المتجر مع أرقام متحركة",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/stats-counter.twig"
     },
     {
       "name": "blog-posts",
       "title": "آخر المقالات",
       "description": "عرض آخر مقالات المدونة",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/blog-posts.twig"
     },
     {
       "name": "parallax-banner",
       "title": "بانر Parallax",
       "description": "بانر مع تأثير Parallax",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/parallax-banner.twig"
     },
     {
       "name": "products-grid-advanced",
       "title": "شبكة منتجات متقدمة",
       "description": "عرض منتجات بتصميم Grid متقدم مع فلاتر",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/products-grid-advanced.twig"
     },
     {
       "name": "collection-list",
       "title": "قائمة المجموعات",
       "description": "عرض مجموعات المنتجات",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/collection-list.twig"
     },
     {
       "name": "app-download",
       "title": "تحميل التطبيق",
       "description": "قسم لتحميل تطبيق الجوال",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/app-download.twig"
     },
     {
       "name": "faq-accordion",
       "title": "الأسئلة الشائعة",
       "description": "قسم الأسئلة الشائعة بتصميم Accordion",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/faq-accordion.twig"
     },
     {
       "name": "team-members",
       "title": "فريق العمل",
       "description": "عرض أعضاء فريق العمل",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/team-members.twig"
     },
     {
       "name": "pricing-table",
       "title": "جدول الأسعار",
       "description": "عرض خطط الأسعار أو الباقات",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/pricing-table.twig"
     },
     {
       "name": "timeline",
       "title": "الخط الزمني",
       "description": "عرض تاريخ المتجر أو الإنجازات",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/timeline.twig"
     },
     {
       "name": "map-section",
       "title": "قسم الخريطة",
       "description": "عرض موقع المتجر على الخريطة",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/map-section.twig"
     },
     {
       "name": "social-proof",
       "title": "إثبات اجتماعي",
       "description": "عرض إشعارات المبيعات الأخيرة",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/social-proof.twig"
     },
     {
       "name": "newsletter-popup",
       "title": "نافذة النشرة البريدية",
       "description": "نافذة منبثقة للاشتراك في النشرة البريدية",
       "preview": "https://via.placeholder.com/800x400",
-      "fields": []
+      "fields": [],
+      "template": "components/home/newsletter-popup.twig"
     }
   ]
 }
